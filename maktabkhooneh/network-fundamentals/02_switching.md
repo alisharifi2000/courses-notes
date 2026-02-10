@@ -16,6 +16,8 @@ Ping uses a protocol called **ICMP** (Internet Control Message Protocol).
 
 > **🌊 Analogy:** Think of ICMP like a **Sonar** on a submarine. It sends a "Pulse" out. If it hits something, the pulse bounces back. It doesn't carry user data (like a file or a photo); it just carries status messages like "Are you there?" (Echo Request) and "Yes, I am" (Echo Reply).
 
+---
+
 ## 2. Lab Topology (Setup)
 
 In this session, we build a physical Local Area Network (LAN) using a Layer 2 Switch.
@@ -59,7 +61,8 @@ In this session, we build a physical Local Area Network (LAN) using a Layer 2 Sw
     -   _What is Ethernet?_ It is the standard set of rules for wired connections. It defines how data is packaged into "Frames" and uses MAC addresses to find devices connected to the same cable.
         
 -   **Layer 3 (Network):** The IP Addresses used to identify the devices logically.
-    
+
+---
 
 ## 3. Inspecting Network Interfaces
 
@@ -99,6 +102,7 @@ Format: `MM:MM:MM:SS:SS:SS` (Example: `00:1A:2B:3C:4D:5E`)
     
 -   **Layer:** Layer 2.
     
+---
 
 ## 4. Configuring IP on Linux
 
@@ -120,6 +124,8 @@ It is a shorthand for `255.255.255.0`.
 >     
 > -   Devices must be on the same "Street" to talk directly.
 >     
+
+---
 
 ## 5. The "Magic" of Switching (CAM Table)
 
@@ -151,6 +157,8 @@ If you connect switches in a circle (Switch A -> Switch B -> Switch C -> Switch 
 
 > **🌪️ Analogy:** Imagine shouting "Hello" in a circular canyon with infinite echoes. The noise never stops. This crashes the network. (Protocols like STP prevent this).
 
+---
+
 ## 6. The Missing Link: ARP
 
 How does your Laptop know the Raspberry Pi's MAC address in the first place? You only typed the IP!
@@ -165,6 +173,8 @@ How does your Laptop know the Raspberry Pi's MAC address in the first place? You
 >     
 > 3.  Now you can go talk to him directly.
 >     
+
+---
 
 ## 7. Packet Analysis (Wireshark Deep Dive)
 
