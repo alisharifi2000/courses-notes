@@ -68,5 +68,5 @@ The course is divided into 14 sessions covering four main chapters:
 
 ## 📝 Session Notes
 
-* [Session 01 - Introduction](./01_intro.md) *(Coming Soon)*
-* [Session 02 - TBD](./02_tbd.md) *(Coming Soon)*
+* [Session 01: Introduction to Networking & The OSI Model](./01_intro.md) 
+* [Session 02: Lab Setup, Switching, and Basic Protocols](./02_switching.md)
