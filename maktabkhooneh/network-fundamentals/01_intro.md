@@ -27,9 +27,9 @@ Networking is complex. To make it manageable, engineers use a concept called **L
 ## 3. The OSI Model (Open Systems Interconnection)
 The **OSI Model** is the universal standard for how computer networks communicate. It divides the communication process into **7 distinct layers**.
 
+![The OSI 7 Layer Model](./assets/osi-model.jpg)
+
 While the model has 7 layers, this course focuses heavily on the **Hardware/Infrastructure Layers (1-3)**, as these are the physical foundations of the network.
-
-
 
 ### Layer 1: The Physical Layer
 * **Function:** Transmission of raw data over a physical medium.
