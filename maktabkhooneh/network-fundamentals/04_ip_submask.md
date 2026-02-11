@@ -21,6 +21,8 @@ An IP address looks like `192.168.1.1`. It is divided into **4 Octets** (parts),
 -   The maximum value for 8 bits is **255** (Binary `11111111`).
     
 -   Therefore, `256.10.10.10` is **Impossible**. An octet cannot be larger than 255.
+
+![IP4 Structure](./assets/ip4.jpg)
     
 ---
 
