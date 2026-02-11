@@ -99,29 +99,72 @@ How does a client get an IP? The process involves 4 steps, remembered by the acr
 
 ---
 
-## 4. Wireshark Analysis: Seeing the Packet
+## 4. Wireshark Analysis: The DORA Exchange
 
-If you capture DHCP traffic in Wireshark, here is what the **Discovery** packet looks like:
+Here is a breakdown of what each packet looks like when capturing traffic on port 67/68.
+
+### Packet 1: Discovery (The Shout)
+The client is looking for a server.
 
 |Field | Value | Explanation |
 |---|---|---|
-|**Protocol**| UDP | Uses UDP port 68 (Src) -> 67 (Dst).|
-|**Source IP** | `0.0.0.0` | "I don't have an identity yet."|
-|**Dest IP** | `255.255.255.255` | "Everyone listen to me!"
-|**Option 53** | DHCP Message Type | Discovery (1) |
+|**Source IP**| `0.0.0.0` | "I don't have an identity yet."|
+|**Dest IP** | `0.0.0.0` | Broadcast (Everyone listen!).|
+|**Option 53** | Discovery (1) | The Message Type."|
 |**Client MAC** | `aa:bb:cc...` |The physical address of the requester.|
 
-### DHCP Options
+### Packet 2: Offer (The Proposal)
+The server proposes an IP.
 
-DHCP doesn't just give an IP. It gives **"Options"**:
+|Field | Value | Explanation |
+|---|---|---|
+|**Source IP**| `192.168.1.1` | The Server's IP.|
+|**Dest IP** | `255.255.255.255` | Broadcast (Since client has no IP yet).|
+|**Your (Client) IP** | `192.168.1.50` | The field yiaddr. "Here is an IP you can use."|
+|**Option 53** | Offer (2) | The Message Type."|
+|**Option 1**| `255.255.255.0 `| Subnet Mask. |
+|**Option 3**| `192.168.1.1`|Router (Gateway).|
+|**Option 6**| `8.8.8.8` |DNS Server.|
+|**Client MAC** | `aa:bb:cc...` |The physical address of the requester.|
 
--   **Option 1:** Subnet Mask (e.g., `255.255.255.0`)
-    
--   **Option 3:** Router / Default Gateway (How to get to the internet).
-    
--   **Option 6:** DNS Server (How to resolve `google.com`).
-    
+### Packet 3: Request (The Selection)
+The client formally requests that specific IP.
 
+|Field | Value | Explanation |
+|---|---|---|
+|**Source IP**| `0.0.0.0` | Still 0.0.0.0 (Client hasn't officially claimed it yet).|
+|**Dest IP** | `255.255.255.255` | Broadcast (To tell other servers to back off).|
+|**Your (Client) IP** | `192.168.1.50` | The field yiaddr. "Here is an IP you can use."|
+|**Option 53** | Request (3) | The Message Type."|
+|**Option 50**| `192.168.1.50` | "Requested IP Address". |
+|**Option 54**| `192.168.1.1` | "DHCP Server Identifier" (Targeting the specific server).|
+
+### Packet 4: Acknowledge (The Handshake)
+The server confirms the lease. The client can now use the IP.
+
+|Field | Value | Explanation |
+|---|---|---|
+|**Source IP**| `192.168.1.1` | The Server.|
+|**Dest IP** | `255.255.255.255` | Broadcast (or Unicast).|
+|**Option 53** | ACK (5) | The Message Type.|
+|**Option 51**| 600 | IP Address Lease Time (10 minutes). |
+
+
+### 📋 Common DHCP Options Reference
+
+DHCP uses numbered "Options" to pass extra information. Here are the most critical ones you will see in Wireshark:
+
+|Option #| Name | Description|
+|---|---|---|
+| 53 |Message Type | Identifies the packet: 1=Discovery, 2=Offer, 3=Request, 5=ACK.|
+| 50 |Requested IP |  Used by the client to ask for a specific IP address.|
+| 51 | Lease Time |  How long (in seconds) the IP is valid before renewal is needed. |
+| 54 | Server Identifier |  The IP of the DHCP server. Essential when multiple servers exist.|
+| 1 | Subnet Mask | Tells the client the size of the network (e.g., 255.255.255.0).|
+| 3 | Router | The Default Gateway IP (to reach the Internet). |
+| 6 | DNS Server | The server used to resolve names (like google.com to an IP).|
+| 12 | Host Name | The name of the client device (e.g., "Johns-MacBook").|
+    
 ## 5. Lab: Setting up `isc-dhcp-server` on Linux
 
 In this lab, we turn an Ubuntu machine into a DHCP Server.
