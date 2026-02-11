@@ -27,60 +27,23 @@ To understand DHCP, we must first understand two underlying concepts: **Transmis
 
 ### A. Broadcast vs. Unicast
 
-Type
-
-Description
-
-Analogy
-
-**Unicast**
-
-One-to-One communication. Specific Source to Specific Destination.
-
-A private phone call between two people.
-
-**Broadcast**
-
-One-to-All communication. One sender, everyone on the network receives it.
-
-A teacher speaking to the whole classroom via a loudspeaker.
+|Type|Description|Analogy|
+|---|---|---|
+|**Unicast**| One-to-One communication. Specific Source to Specific Destination. |A private phone call between two people.|
+|**Broadcast** | One-to-All communication. One sender, everyone on the network receives it.| A teacher speaking to the whole classroom via a loudspeaker.|
 
 -   **Why does this matter?** When a computer first wakes up, it has **No IP Address**. It doesn't know where the server is. So, it _must_ use **Broadcast** to shout for help.
-    
 
 ### B. TCP vs. UDP
 
 Data travels inside "Transport Layer" protocols. The two main ones are:
 
-Feature
-
-TCP (Transmission Control Protocol)
-
-UDP (User Datagram Protocol)
-
-**Reliability**
-
-**High.** Guarantees delivery. If a packet is lost, it resends it.
-
-**Low.** Fire and forget. No guarantee.
-
-**Speed**
-
-Slower (due to checking).
-
-Faster (low overhead).
-
-**Connection**
-
-Connection-Oriented (3-Way Handshake).
-
-Connection-less.
-
-**Usage**
-
-Web browsing (HTTP), Email, File Transfers.
-
-Streaming, Gaming, **DHCP**, DNS.
+|Feature| TCP (Transmission Control Protocol) |UDP (User Datagram Protocol)|
+|---|---|---|
+|**Reliability**| **High.** Guarantees delivery. If a packet is lost, it resends it. | **Low.** Fire and forget. No guarantee.|
+|**Speed** | Slower (due to checking). | Faster (low overhead).|
+|**Connection**|  Connection-Oriented (3-Way Handshake).| Connection-less.|
+|**Usage**| Web browsing (HTTP), Email, File Transfers. | Streaming, Gaming, **DHCP**, DNS.|
 
 -   **DHCP uses UDP** (Port 67 for Server, Port 68 for Client).
     
@@ -92,7 +55,7 @@ Streaming, Gaming, **DHCP**, DNS.
 
 How does a client get an IP? The process involves 4 steps, remembered by the acronym **DORA**.
 
-![dhcp-process](./assets/dhcp-process.jpg)
+![DHCP Process](./assets/dhcp_process.jpeg)
 
 ### Step 1: **D**iscovery (Client -> Server)
 
@@ -140,41 +103,13 @@ How does a client get an IP? The process involves 4 steps, remembered by the acr
 
 If you capture DHCP traffic in Wireshark, here is what the **Discovery** packet looks like:
 
-Field
-
-Value
-
-Explanation
-
-**Protocol**
-
-UDP
-
-Uses UDP port 68 (Src) -> 67 (Dst).
-
-**Source IP**
-
-`0.0.0.0`
-
-"I don't have an identity yet."
-
-**Dest IP**
-
-`255.255.255.255`
-
-"Everyone listen to me!"
-
-**Option 53**
-
-DHCP Message Type
-
-Discovery (1)
-
-**Client MAC**
-
-`aa:bb:cc...`
-
-The physical address of the requester.
+|Field | Value | Explanation |
+|---|---|---|
+|**Protocol**| UDP | Uses UDP port 68 (Src) -> 67 (Dst).|
+|**Source IP** | `0.0.0.0` | "I don't have an identity yet."|
+|**Dest IP** | `255.255.255.255` | "Everyone listen to me!"
+|**Option 53** | DHCP Message Type | Discovery (1) |
+|**Client MAC** | `aa:bb:cc...` |The physical address of the requester.|
 
 ### DHCP Options
 
