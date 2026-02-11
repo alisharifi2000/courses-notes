@@ -164,6 +164,8 @@ DHCP uses numbered "Options" to pass extra information. Here are the most critic
 | 3 | Router | The Default Gateway IP (to reach the Internet). |
 | 6 | DNS Server | The server used to resolve names (like google.com to an IP).|
 | 12 | Host Name | The name of the client device (e.g., "Johns-MacBook").|
+
+---
     
 ## 5. Lab: Setting up `isc-dhcp-server` on Linux
 
