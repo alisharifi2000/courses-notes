@@ -67,7 +67,7 @@ Let's analyze a real-world setup involving multiple jumps (Hops) to get to the i
 
 Imagine you are on the Laptop and you run `ping 4.2.2.4`. Your laptop checks its routing table. It does **not** have a route for `4.2.2.4`. So, it uses the **Default Gateway**.
 
-![Hop-by-hop](./assets/"Hop by Hop Gateway Chain.jpg")
+![Hop-by-hop](./assets/Hop_by_Hop_Gateway_Chain.jpg)
 
 ### Step 1: Laptop -> Mikrotik
 
